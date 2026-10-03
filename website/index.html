@@ -32,7 +32,7 @@
           <p class="hero-description">Verseglade brings a Bhagavad Gita quotation to the wallpaper you already love. A small pause, right where your day begins.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#downloads">Find your download <span aria-hidden="true">↓</span></a>
-            <span class="platform-note">For macOS, Windows, and Linux</span>
+            <span class="platform-note">A download matched to your computer</span>
           </div>
           <div class="hero-note">
             <span class="note-mark" aria-hidden="true">✳</span>
@@ -136,37 +136,30 @@
         <div class="downloads-heading">
           <div>
             <p class="eyebrow"><span class="eyebrow-line"></span> Begin whenever you're ready</p>
-            <h2 id="downloads-title">Choose your <em>desktop.</em></h2>
+            <h2 id="downloads-title">One right <em>download.</em></h2>
           </div>
-          <p>Pick the installer for your computer.<br>All downloads link to the latest GitHub release.</p>
+          <p>We’ll detect your operating system<br>and show its installer.</p>
         </div>
-        <div class="download-grid">
-          <article class="download-card">
-            <div class="platform-icon apple-icon" aria-hidden="true">⌘</div>
-            <div class="platform-name"><h3>macOS</h3><span>Apple silicon</span></div>
-            <p>Disk image for Apple silicon Macs.</p>
-            <a class="download-link" href="https://github.com/VasiHemanth/verseglade/releases/latest/download/Verseglade-macOS-aarch64.dmg" data-platform="macos">
-              <span>Download .dmg</span><span aria-hidden="true">↗</span>
-            </a>
-          </article>
-          <article class="download-card">
-            <div class="platform-icon windows-icon" aria-hidden="true"><span>⊞</span></div>
-            <div class="platform-name"><h3>Windows</h3><span>x64</span></div>
-            <p>Setup installer for 64-bit Windows.</p>
-            <a class="download-link" href="https://github.com/VasiHemanth/verseglade/releases/latest/download/Verseglade-Windows-x64-setup.exe" data-platform="windows">
-              <span>Download .exe</span><span aria-hidden="true">↗</span>
-            </a>
-          </article>
-          <article class="download-card">
-            <div class="platform-icon linux-icon" aria-hidden="true">◈</div>
-            <div class="platform-name"><h3>Linux</h3><span>x64</span></div>
-            <p>Portable AppImage for x64 Linux.</p>
-            <a class="download-link" href="https://github.com/VasiHemanth/verseglade/releases/latest/download/Verseglade-Linux-x64.AppImage" data-platform="linux">
-              <span>Download AppImage</span><span aria-hidden="true">↗</span>
-            </a>
-          </article>
+        <article class="download-card download-card-featured" aria-labelledby="download-platform-name">
+          <div id="platform-icon" class="platform-icon" aria-hidden="true">⌘</div>
+          <div class="platform-name"><h3 id="download-platform-name">Detecting your system…</h3><span id="download-architecture"></span></div>
+          <p id="download-description">Finding the matching Verseglade installer.</p>
+          <a class="download-link" id="download-link" href="#" hidden>
+            <span id="download-label">Download installer</span><span aria-hidden="true">↗</span>
+          </a>
+          <p class="download-unavailable" id="download-unavailable" hidden>This system isn’t detected automatically. Choose an available platform below.</p>
+        </article>
+        <div class="platform-picker">
+          <label for="platform-select">Downloading for a different computer?</label>
+          <select id="platform-select" aria-label="Choose the operating system for this download">
+            <option value="auto">Use detected system</option>
+            <option value="macos">macOS · Apple silicon</option>
+            <option value="windows">Windows · x64</option>
+            <option value="linux">Linux · x64</option>
+          </select>
         </div>
-        <p class="release-note"><span aria-hidden="true">ⓘ</span> Downloads become available when a release is published. Need help? <a href="#help">See setup notes below.</a></p>
+        <p class="release-note" id="download-status" aria-live="polite">Detecting your operating system. You can choose a platform manually.</p>
+        <p class="release-note"><span aria-hidden="true">ⓘ</span> Downloads come from the latest release. Need help? <a href="#help">See setup notes below.</a></p>
       </section>
 
       <section class="help-section" id="help" aria-labelledby="help-title">
