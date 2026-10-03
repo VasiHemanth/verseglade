@@ -55,7 +55,7 @@ cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
 
 ## Downloads and landing page
 
-The static landing page is in `website/`; it can be uploaded to a static host such as Hostinger. GitHub Actions builds macOS Apple silicon `.dmg`, Windows x64 NSIS `.exe`, and Linux x64 `.AppImage` installers when a `v*` version tag is pushed. The release assets use the filenames linked from the landing page.
+The static landing page is in `website/` and is published at [vasihemanth.github.io/verseglade](https://vasihemanth.github.io/verseglade/). Its download buttons link to GitHub Releases. GitHub Actions builds macOS Apple silicon `.dmg`, Windows x64 NSIS `.exe`, and Linux x64 `.AppImage` installers when a `v*` version tag is pushed. The release assets use the filenames linked from the landing page.
 
 The Tauri bundle identifier remains `com.hemanth.gita-wallpaper` so existing installations retain their saved preferences and schedules after the Verseglade rebrand.
 
