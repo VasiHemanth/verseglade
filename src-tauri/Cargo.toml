@@ -1,6 +1,6 @@
 [package]
 name = "verseglade"
-version = "0.1.0"
+version = "0.1.1"
 description = "Daily Bhagavad Gita-inspired quote wallpapers for your desktop"
 authors = ["Verseglade contributors"]
 edition = "2021"

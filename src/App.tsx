@@ -395,7 +395,7 @@ function App() {
       <header className="topbar">
         <a className="brand" href="#" aria-label="Verseglade home">
           <img className="brand-mark" src="/verseglade-mark.svg" alt="" />
-          <span>still<span className="brand-light">point</span></span>
+          <span>verse<span className="brand-light">glade</span></span>
         </a>
         <div className="topbar-actions">
           <div className="topbar-meta"><span className="status-dot" /> PERSONAL DESKTOP RITUAL</div>
