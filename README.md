@@ -57,7 +57,11 @@ cargo fmt --manifest-path src-tauri/Cargo.toml -- --check
 
 The static landing page is in `website/` and is published at [vasihemanth.github.io/verseglade](https://vasihemanth.github.io/verseglade/). Its download buttons link to GitHub Releases. GitHub Actions builds macOS Apple silicon `.dmg`, Windows x64 NSIS `.exe`, and Linux x64 `.AppImage` installers when a `v*` version tag is pushed. The release assets use the filenames linked from the landing page.
 
+The Microsoft Store EXE submission requires a direct installer URL without redirects. Each tagged release also publishes a versioned Windows installer under `website/downloads/<tag>/` on GitHub Pages for that purpose. The Store listing privacy policy is at [website/privacy.html](website/privacy.html).
+
 The Tauri bundle identifier remains `com.hemanth.gita-wallpaper` so existing installations retain their saved preferences and schedules after the Verseglade rebrand.
+
+The Windows NSIS installer is currently unsigned. Microsoft Defender SmartScreen can therefore show “Windows protected your PC” for a new download. People who obtained the installer from the official Verseglade release can choose **More info**, confirm the app is Verseglade, then choose **Run anyway**. Do not bypass the warning for an installer from another source. Code signing can identify a verified publisher, but does not guarantee that new builds immediately avoid SmartScreen warnings; publisher and file reputation also matter. See [Microsoft's SmartScreen reputation guidance](https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/smartscreen-reputation).
 
 Mac builds also require an Xcode SDK containing FoundationModels and its Swift compiler for the bundled translation bridge. The bridge uses availability checks for older systems.
 
