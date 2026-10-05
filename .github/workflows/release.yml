@@ -69,6 +69,32 @@ jobs:
           fi
           cp "${files[0]}" "release-assets/${{ matrix.asset }}"
 
+      - name: Sign Windows Installer (Trusted Signing)
+        if: matrix.platform == 'Windows' && env.AZURE_CLIENT_ID != ''
+        uses: azure/trusted-signing-action@v0.5.1
+        with:
+          azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+          endpoint: https://eus.codesigning.azure.net/
+          trusted-signing-account-name: ${{ secrets.AZURE_TRUSTED_SIGNING_ACCOUNT_NAME }}
+          certificate-profile-name: ${{ secrets.AZURE_CERTIFICATE_PROFILE_NAME }}
+          files-folder: release-assets
+          files-folder-filter: exe
+          file-digest: SHA256
+          timestamp-rfc3161: http://timestamp.acs.microsoft.com
+          timestamp-digest: SHA256
+        env:
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+
+      - name: Report Windows code signing status
+        if: matrix.platform == 'Windows' && env.AZURE_CLIENT_ID == ''
+        shell: bash
+        run: |
+          echo "::warning::Windows installer was packaged unsigned. Microsoft Store Policy 10.2.9 requires code signing chaining to Microsoft Trusted Root (e.g. via Microsoft Trusted Signing). Configure AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, AZURE_TENANT_ID, AZURE_TRUSTED_SIGNING_ACCOUNT_NAME, and AZURE_CERTIFICATE_PROFILE_NAME in GitHub repository secrets for automated signing."
+        env:
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+
       - uses: actions/upload-artifact@v4
         with:
           name: installers-${{ matrix.platform }}

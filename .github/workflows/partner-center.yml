@@ -1,0 +1,46 @@
+name: Submit to Microsoft Partner Center
+
+on:
+  workflow_dispatch:
+    inputs:
+      package_url:
+        description: 'Direct installer URL for the package'
+        required: false
+        default: 'https://vasihemanth.github.io/verseglade/downloads/v0.1.1/Verseglade-Windows-x64-setup.exe'
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  store-submission:
+    name: Microsoft Store Submission
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify Configuration
+        run: |
+          echo "Preparing submission for Microsoft Partner Center."
+          echo "Product ID: 1ce6b936-f6d0-462f-aac4-f29462145b01"
+          echo "Publisher: Hemanth Vasi"
+          echo "Package URL: ${{ github.event.inputs.package_url || 'https://vasihemanth.github.io/verseglade/downloads/v0.1.1/Verseglade-Windows-x64-setup.exe' }}"
+
+      - name: Check Microsoft Store API Secrets
+        id: check-secrets
+        run: |
+          if [ -n "${{ secrets.STORE_CLIENT_ID }}" ] && [ -n "${{ secrets.STORE_CLIENT_SECRET }}" ] && [ -n "${{ secrets.STORE_TENANT_ID }}" ]; then
+            echo "has_secrets=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_secrets=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Store API secrets (STORE_CLIENT_ID, STORE_CLIENT_SECRET, STORE_TENANT_ID) not configured. Setup instructions documented in MICROSOFT_STORE_GUIDE.md."
+          fi
+
+      - name: Update Store Submission (Automated)
+        if: steps.check-secrets.outputs.has_secrets == 'true'
+        uses: isaacrlevin/windows-store-action@v1
+        with:
+          tenant-id: ${{ secrets.STORE_TENANT_ID }}
+          client-id: ${{ secrets.STORE_CLIENT_ID }}
+          client-secret: ${{ secrets.STORE_CLIENT_SECRET }}
+          app-id: ${{ secrets.STORE_APP_ID || '1ce6b936-f6d0-462f-aac4-f29462145b01' }}
+          package-path: ${{ github.event.inputs.package_url }}
